@@ -1,0 +1,6 @@
+/assets/config/config.php
+/assets/inc/db.php
+/assets/inc/install.php
+.htaccess
+test_config_write.php
+install.php
