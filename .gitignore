@@ -4,3 +4,4 @@
 .htaccess
 test_config_write.php
 install.php
+.gitignore
