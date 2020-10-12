@@ -12,18 +12,18 @@
 
 
 $userid = 1;
-if (isset($_POST)) {
+if (isset($_POST['del'])) {
 
-    $sql = "SELECT * FROM news WHERE id = ". $id;
-    $result = mysqli_query($mysqli, $sql);
-            
-    while ($row = $result->fetch_assoc()) {
-        if (isset($_POST['like'])) {
+    $sql = "UPDATE news SET deleted = 1 WHERE id = %d";
+    $new_sql = sprintf($sql, $id);
 
-        } else if (isset($_POST['dislike'])) {
-        
-        }
+    if (!mysqli_query($mysqli, $new_sql)) {
+        info_error(mysqli_error($base));
+    } else {
+        header("Location: news.php");
     }
+
+    
 
 }
 
@@ -41,7 +41,7 @@ require('./assets/inc/header.php');
 
         <?php
 
-            $sql = "SELECT * FROM news WHERE id = ". $id;
+            $sql = "SELECT * FROM news WHERE deleted = 0 AND id = ". $id;
             $result = mysqli_query($mysqli, $sql);
                         
             if ($result) {
@@ -101,7 +101,7 @@ require('./assets/inc/header.php');
                                     if (($row['auteurid'] == $rw['id']) || ($rw['rank'] == 1) ) { ?>
                                         <br> <br><a href="news_edit.php?id=<?= $row['id']; ?>" class="btn btn-outline-info btn-sm"><i class="fas fa-edit"></i> Modifier</a>
                                         
-                                    <?php } if ($rw['rank'] == 1) { ?>
+                                    
                                         <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#confirmation">
                                             <i class="fas fa-trash-alt"></i> Supprimer
                                         </button>
@@ -117,11 +117,14 @@ require('./assets/inc/header.php');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    ...
+                                                    Etes-vous sûr de vour supprimer cette news ?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-window-close"></i> Fermer</button>
-                                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Confirmer la suppression</button>
+                                                    <form action="" method="post">
+                                                        <button type="submit" name="del" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Confirmer la suppression</button>
+                                                    </form>
+                                                    
                                                 </div>
                                                 </div>
                                             </div>
@@ -135,7 +138,7 @@ require('./assets/inc/header.php');
 
 
 <br><br>
-                        <div class="vote_bar">
+                       <!-- <div class="vote_bar">
                             <div class="vote_progress" style="width:<?= ( $row['like_count'] + $row['dislike_count'] ) == 0 ? 100 : (100 * ($row['like_count'] / ( $row['like_count'] + $row['dislike_count'] ))) ?>%"></div>
                         </div>
                         <div class="vote_btns">
@@ -145,7 +148,7 @@ require('./assets/inc/header.php');
                                 <button type="submit" name="dislike" id="dislike"class="vote_btn vote_dislike"><i class="fas fa-thumbs-down"></i> <?php echo $row['dislike_count']; ?></button>
                             </form>
                         
-                        </div>
+                        </div>-->
 
                         
 

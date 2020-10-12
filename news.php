@@ -8,7 +8,7 @@ require('./assets/inc/header.php');
     <div class="row row-cols-1 row-cols-md-3">
 
 <?php 
-    $sql = "SELECT count(*) AS total FROM news ORDER BY id DESC LIMIT 3";
+    $sql = "SELECT count(*) AS total FROM news WHERE deleted = 0 ORDER BY id DESC LIMIT 3";
 
     $result = mysqli_query($mysqli, $sql);
     $total = mysqli_fetch_object($result);
@@ -35,8 +35,8 @@ require('./assets/inc/header.php');
     } else if ($_GET["page"] > 1 && $_GET["page"] < $page) {
         $limit = 12 * $_GET["page"];
     }
-
-    $sql = 'SELECT * FROM news ORDER BY id DESC LIMIT '.$limit.',12';
+    $count = 0;
+    $sql = 'SELECT * FROM news WHERE deleted = 0 ORDER BY id DESC LIMIT '.$limit.',12';
     $result = mysqli_query($mysqli, $sql);
     if ($result) {
         while ($row = $result->fetch_assoc()) {

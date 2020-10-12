@@ -3,7 +3,7 @@ require_once('./assets/inc/db.php');
 require_once('./assets/inc/functions.php'); 
 require('./assets/inc/header.php'); 
 
-$sql = "SELECT * FROM news ORDER BY id DESC LIMIT 3";
+$sql = "SELECT * FROM news WHERE deleted = 0 ORDER BY id DESC LIMIT 3";
 $result = mysqli_query($mysqli, $sql);
                         
 if ($result) {

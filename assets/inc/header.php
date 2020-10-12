@@ -44,6 +44,8 @@ if (session_status() == PHP_SESSION_NONE) {
         echo "Page Introuvable";
     } else if ($actual == "news_edit.php") {
         echo "Édition News n°". $_GET['id'];
+    } else if ($actual == "news_new.php") {
+        echo "Nouvelle News";
     } else {
         echo "Page Inconnue";
     }
@@ -91,9 +93,9 @@ if (session_status() == PHP_SESSION_NONE) {
                         ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Profil</a>
+                        <!--<a class="dropdown-item" href="#">Profil</a>
                         <a class="dropdown-item" href="#">Paramètres</a>
-                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider"></div>-->
                         <a class="dropdown-item" href="<?= ($actual == "403.php" || $actual == "404.php") ? "../" : "" ?>deconnexion.php">Se déconnecter</a>
                     </div>
                 </li>
@@ -103,7 +105,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </li>
                 <?php } if ($row['rank'] != 2) { ?>
                 <li class="nav-item">
-                    <a class="nav-link <?= ($actual == "inscription.php") ? "active" : "" ?>" href="<?= ($actual == "403.php" || $actual == "404.php") ? "../" : "" ?>inscription.php"><i class="fas fa-file-medical"></i> Ecrire un article </a>
+                    <a class="nav-link <?= ($actual == "news_new.php") ? "active" : "" ?>" href="<?= ($actual == "403.php" || $actual == "404.php") ? "../" : "" ?>news_new.php"><i class="fas fa-file-medical"></i> Ecrire un article </a>
                 </li>
             <?php } } } else { ?>
                 <li class="nav-item">

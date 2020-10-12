@@ -9,8 +9,12 @@ if (isset($_SESSION['auth'])) {
 ?>
 <h1>Inscription</h1>
 <?php
+$pseudo = "";
 if (isset($_POST) && !empty($_POST['valider1'])) {
     //Pseudo
+    $pseudo = $_POST["pseudo"];
+
+
     if(empty($_POST["pseudo"])) {
         $_SESSION['inscription']['erreur']['username'] = "Vous devez mettre un Pseudo.";
     } else if(!preg_match('/^[a-zA-Z0-9_]+$/', $_POST['pseudo'])) {
@@ -74,7 +78,7 @@ if (isset($_POST) && !empty($_POST['valider1'])) {
                     <div class="form-row">
                         <div class="col-md-4 offset-md-4 mb-3">
                             <label for="validationTooltip01">Pseudo</label>
-                            <input type="text" name="pseudo" class="form-control" id="validationTooltip01" value="<?= $_POST["pseudo"] ?>">
+                            <input type="text" name="pseudo" class="form-control" id="validationTooltip01" value="<?= $pseudo ?>">
                         </div>
                     </div>
                     <div class="form-row">

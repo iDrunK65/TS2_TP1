@@ -34,8 +34,40 @@ if (isset($_POST['valider'])) {
     }
     header('Location: admin_users.php');
 }
+if (isset($_POST['restaurer'])) {
 
+    $sql = "UPDATE news SET deleted = 0 WHERE id = %d";
+    $new_sql = sprintf($sql, $id);
 
+    if (!mysqli_query($mysqli, $new_sql)) {
+        info_error(mysqli_error($base));
+    } else {
+        header("Location: admin_news.php");
+    }
+}
+if (isset($_POST['del'])) {
+
+    $sql = "UPDATE news SET deleted = 1 WHERE id = %d";
+    $new_sql = sprintf($sql, $id);
+
+    if (!mysqli_query($mysqli, $new_sql)) {
+        info_error(mysqli_error($base));
+    } else {
+        header("Location: admin_news.php");
+    }
+}
+
+if (isset($_POST['del_inf'])) {
+
+    $sql = "DELETE FROM news WHERE id = %d";
+    $new_sql = sprintf($sql, $id);
+
+    if (!mysqli_query($mysqli, $new_sql)) {
+        info_error(mysqli_error($base));
+    } else {
+        header("Location: admin_news.php");
+    }
+}
 
 
 $sql = "SELECT * FROM users WHERE id = ". $id;
